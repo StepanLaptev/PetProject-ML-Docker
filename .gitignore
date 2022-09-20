@@ -1,0 +1,10 @@
+.idea
+.backend/src/data/__init__.py
+.backend/src/pipelinies/__init__.py
+.backend/src/train/__init__.py
+.backend/src/transform/__init__.py
+.backend/src/transform/__pycache__/__init__.cpython-39.pyc
+.frontend/src/evaluate/__init__.py
+.frontend/src/get_data/__init__.py
+.frontend/src/plotting/__init__.py
+.frontend/src/train/__init__.py

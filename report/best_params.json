@@ -1,0 +1,1 @@
+{"n_estimators": 1500, "learning_rate": 0.0376883113168022, "num_leaves": 11, "min_data_in_leaf": 34, "max_depth": 4, "boosting_type": "gbdt", "bagging_fraction": 0.7, "feature_fraction": 0.6, "lambda_l1": 3, "lambda_l2": 8, "is_unbalance": true, "objective": "multiclass", "num_class": 6, "metric": "multi_logloss"}

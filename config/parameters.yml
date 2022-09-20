@@ -1,0 +1,112 @@
+preprocessing:
+  lower_columns: ['country']
+
+  map_func_for_columns:
+    age_group:
+      '<18': less_18
+      '18-24': 18_to_24
+      '25-44': 25_to_44
+      '45-64': 45_to_64
+      '65+': more_65
+    package_transport_int:
+      'Yes': 1
+      'No': 0
+    package_accomodation:
+      'Yes': 1
+      'No': 0
+    package_food:
+      'Yes': 1
+      'No': 0
+    package_transport_tz:
+      'Yes': 1
+      'No': 0
+    package_sightseeing:
+      'Yes': 1
+      'No': 0
+    package_guided_tour:
+      'Yes': 1
+      'No': 0
+    package_insurance:
+      'Yes': 1
+      'No': 0
+    first_trip_tz:
+      'Yes': 1
+      'No': 0
+  correct_values:
+    main_activity:
+      'Widlife Tourism': 'Wildlife Tourism'
+    country:
+      'netherlands': 'the netherlands'
+      'swizerland' : 'switzerland'
+      'morroco': 'morocco'
+      'luxembourg': 'luxemburg'
+      'romania': 'rumania'
+      'malt': 'malta'
+      'comoro': 'comoros'
+      'saud arabia': 'saudi arabia'
+      'scotland': 'united kingdom'
+      'ukrain': 'ukraine'
+      'somali': 'somalia'
+      'ecuado': 'ecuador'
+      'cape verde': 'cabo verde'
+      'monecasque': 'monaco'
+      'trinidad tobacco': 'trinidad and tobago'
+      'burgaria': 'bulgaria'
+      'djibout': 'djibouti'
+  columns_symbol_correct: ['country', 'travel_with', 'purpose', 'main_activity', 'info_source', 'tour_arrangement']
+  change_type_columns:
+    'country': category
+    'age_group': category
+    'travel_with': category
+    'purpose': category
+    'main_activity': category
+    'info_source': category
+    'tour_arrangement': category
+    'total_male': int
+    'total_female': int
+  all_person: ['total_female','total_male']
+  all_options: ['package_transport_int', 'package_accomodation', 'package_food', 'package_transport_tz',
+                'package_sightseeing', 'package_guided_tour', 'package_insurance']
+  all_nights: ['night_mainland', 'night_zanzibar']
+  col_continent: 'continent'
+  col_all_nights: 'total_nights'
+  col_all_nights_bin: 'total_nights_bin'
+  col_total_person: 'total_person'
+  col_tour_options: 'tour_options'
+  new_columns: ['total_person', 'tour_options', 'total_nights', 'total_nights_bin', 'continent']
+  target: 'cost_category'
+  drop_column: ['Tour_ID']
+  train_path: ../data/raw/Train.csv
+  unique_values_path: ../data/processed/unique_values.json
+  data_for_plot: ../data/processed/data_for_plot.csv
+  mapping: ../data/processed/mapping.json
+  dict_continent: ../data/processed/continents.json
+  random_state: 11
+  test_size: 0.2
+
+train:
+  n_trials: 10
+  n_folds: 5
+  test_size: 0.2
+  early_stopping_rounds: 30
+  eval_metric: "multi_logloss"
+  target: 'cost_category'
+  random_state: 12
+  model_path: ../models/model_lgbm.joblib
+  study_path: ../models/study.joblib
+  metrics_path: ../report/metrics.json
+  params_path: ../report/best_params.json
+  mapping: ../data/processed/mapping.json
+
+evaluate:
+  predict_path: ../data/check/Test.csv
+
+endpoints:
+  # для локального тестирования
+  train: 'http://localhost:8000/train'
+  prediction_input: 'http://localhost:8000/predict_input'
+  prediction_from_file: 'http://localhost:8000/predict'
+  # для Docker
+  #train: 'http://fastapi:8000/train'
+  #prediction_input: 'http://fastapi:8000/predict_input'
+  #prediction_from_file: 'http://fastapi:8000/predict'
